@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Simple Science · Moulting</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box;
+            font-family: system-ui, 'Segoe UI', Roboto, sans-serif; }
+        body { background: #f6fafd; color: #0b2b3c; line-height: 1.5;
+               padding: 2rem 1.5rem; }
+        .wrapper { max-width: 900px; margin: 0 auto; }
+
+        .header { margin-bottom: 2.5rem; text-align: center; }
+        .header h1 {
+            font-size: 2.6rem; font-weight: 600;
+            background: linear-gradient(135deg, #0f5e7a, #1b8c9c);
+            -webkit-background-clip: text; background-clip: text;
+            color: transparent; display: inline-block; padding-bottom: 0.3rem;
+        }
+        .header p {
+            font-size: 1.15rem; color: #2b5e6e; margin-top: 0.4rem;
+            border-bottom: 2px dashed #b8d7e3; display: inline-block;
+            padding-bottom: 0.75rem;
+        }
+
+        .theme-card {
+            background: #fff; border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0, 40, 60, 0.08);
+            padding: 1.8rem 1.6rem 2rem;
+            border: 1px solid rgba(110, 170, 200, 0.2);
+            max-width: 640px; margin: 0 auto;
+        }
+        .theme-title {
+            font-size: 1.9rem; font-weight: 600; color: #124f63;
+            padding-bottom: 0.4rem; margin-bottom: 1.6rem;
+            border-bottom: 3px solid #b1dfec;
+            display: flex; align-items: center; gap: 0.5rem;
+        }
+        .theme-title span {
+            font-size: 1.5rem; line-height: 1;
+            background: #e1f0f7; padding: 0.3rem 0.6rem 0.25rem;
+            border-radius: 60px; color: #16697a;
+        }
+
+        .topic {
+            background: #f8fdff; border-radius: 20px;
+            padding: 1.4rem 1.4rem 1.6rem;
+            border: 1px solid #cce3ed;
+        }
+        .topic-name {
+            font-size: 1.5rem; font-weight: 600; color: #0a3c4e;
+            margin-bottom: 1rem;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .topic-name::before { content: "🦎"; font-size: 1.4rem; }
+
+        .video-picker {
+            display: flex; align-items: center; gap: 0.6rem;
+            margin-bottom: 1rem; flex-wrap: wrap;
+        }
+        .video-picker label {
+            font-size: 0.85rem; font-weight: 600;
+            color: #16697a; text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .video-picker select {
+            flex: 1; min-width: 200px;
+            padding: 0.6rem 0.9rem;
+            font-size: 0.95rem; color: #0a3c4e;
+            background: #ffffff;
+            border: 1.5px solid #b1dfec;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: border-color 0.15s, box-shadow 0.15s;
+        }
+        .video-picker select:hover { border-color: #6ab3cf; }
+        .video-picker select:focus {
+            outline: none; border-color: #1b8c9c;
+            box-shadow: 0 0 0 3px rgba(27, 140, 156, 0.15);
+        }
+
+        .video-container {
+            position: relative; background: #0b2b3c;
+            border-radius: 16px; overflow: hidden;
+            aspect-ratio: 16 / 9;
+            box-shadow: 0 6px 14px rgba(0, 0, 0, 0.1);
+            border: 2px solid #fff;
+        }
+        .video-container iframe {
+            width: 100%; height: 100%; display: block;
+            border: none; background: #091e2a;
+        }
+
+        .video-note {
+            font-size: 0.8rem; color: #5e7e8c;
+            display: flex; align-items: center; gap: 0.4rem;
+            margin-top: 0.8rem;
+        }
+        .video-note code {
+            background: #e6f1f7; padding: 0.15rem 0.5rem;
+            border-radius: 30px; font-size: 0.75rem;
+            color: #0d4a60; font-weight: 500;
+            border: 1px solid #b8d3e0;
+        }
+
+        .footer {
+            margin-top: 3rem; text-align: center;
+            color: #6b8f9c; font-size: 0.95rem;
+            border-top: 1px solid #cde3ec; padding-top: 2rem;
+        }
+
+        @media (max-width: 600px) {
+            body { padding: 1.2rem; }
+            .header h1 { font-size: 2rem; }
+            .theme-card { padding: 1.2rem; }
+            .theme-title { font-size: 1.6rem; }
+            .topic-name { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wrapper">
+        <div class="header">
+            <h1>🔭 simple science</h1>
+            <p>moulting · one topic</p>
+        </div>
+
+        <div class="theme-card">
+            <div class="theme-title"><span>🦎</span> Moulting</div>
+
+            <div class="topic">
+                <div class="topic-name">Choose a video</div>
+
+                <div class="video-picker">
+                    <label for="moultingSelect">Video:</label>
+                    <select id="moultingSelect"
+                            onchange="document.getElementById('moultingFrame').src = this.value">
+                        <option value="https://www.youtube.com/embed/95DRqUEf6PI?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1">
+                            Clip A
+                        </option>
+                        <option value="https://www.youtube.com/embed/roX7KaR73Vw?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1">
+                            Clip B
+                        </option>
+                        <option value="https://www.youtube.com/embed/cmqwcb1fh_0?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1">
+                            Clip C
+                        </option>
+                    </select>
+                </div>
+
+                <div class="video-container">
+                    <iframe id="moultingFrame"
+                            src="https://www.youtube.com/embed/95DRqUEf6PI?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1"
+                            title="Moulting video"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                            allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="video-note">
+                    <code>3 videos · pick one above</code>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">⚡ moulting · 3 clips · plain embeds</div>
+    </div>
+</body>
+</html>
