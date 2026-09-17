@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Science · Moulting</title>
+    <title>Simple Science · Moulting & Changes</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box;
             font-family: system-ui, 'Segoe UI', Roboto, sans-serif; }
@@ -11,6 +11,7 @@
                padding: 2rem 1.5rem; }
         .wrapper { max-width: 900px; margin: 0 auto; }
 
+        /* ---------- header ---------- */
         .header { margin-bottom: 2.5rem; text-align: center; }
         .header h1 {
             font-size: 2.6rem; font-weight: 600;
@@ -24,12 +25,13 @@
             padding-bottom: 0.75rem;
         }
 
+        /* ---------- video card ---------- */
         .theme-card {
             background: #fff; border-radius: 28px;
             box-shadow: 0 12px 30px rgba(0, 40, 60, 0.08);
             padding: 1.8rem 1.6rem 2rem;
             border: 1px solid rgba(110, 170, 200, 0.2);
-            max-width: 640px; margin: 0 auto;
+            max-width: 640px; margin: 0 auto 2.5rem;
         }
         .theme-title {
             font-size: 1.9rem; font-weight: 600; color: #124f63;
@@ -104,29 +106,148 @@
             border: 1px solid #b8d3e0;
         }
 
+        /* ---------- notes section ---------- */
+        .notes-section {
+            max-width: 800px; margin: 0 auto;
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0, 40, 60, 0.06);
+            padding: 2rem 1.8rem 2.2rem;
+            border: 1px solid rgba(110, 170, 200, 0.18);
+        }
+        .notes-section h2 {
+            font-size: 1.8rem; font-weight: 600; color: #124f63;
+            border-bottom: 3px solid #b1dfec;
+            padding-bottom: 0.5rem; margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .notes-section h2::before {
+            content: "📘"; font-size: 1.6rem;
+        }
+        .notes-section h3 {
+            font-size: 1.25rem; font-weight: 600; color: #0a3c4e;
+            margin: 1.6rem 0 0.6rem;
+            padding-left: 0.4rem;
+            border-left: 5px solid #1b8c9c;
+            padding-top: 0.1rem;
+            padding-bottom: 0.1rem;
+        }
+        .notes-section h3:first-of-type { margin-top: 0.4rem; }
+
+        .notes-section p {
+            margin: 0.4rem 0 0.6rem 0.8rem;
+            color: #1b3f4e;
+        }
+        .notes-section ul, .notes-section ol {
+            margin: 0.4rem 0 0.9rem 1.8rem;
+            color: #1b3f4e;
+        }
+        .notes-section li {
+            margin-bottom: 0.25rem;
+        }
+        .notes-section strong {
+            color: #0b4b5e;
+        }
+        .notes-section em {
+            color: #2b6b7e;
+            font-style: italic;
+        }
+
+        .notes-section .highlight-box {
+            background: #f0f9fe;
+            border-left: 6px solid #1b8c9c;
+            padding: 0.8rem 1rem;
+            border-radius: 12px;
+            margin: 0.8rem 0 1rem 0;
+            font-size: 0.98rem;
+        }
+
+        /* moulting link – hover shows tooltip, click scrolls up */
+        .moulting-link {
+            position: relative;
+            color: #0f6f8c;
+            font-weight: 600;
+            text-decoration: underline;
+            text-decoration-style: dotted;
+            text-underline-offset: 3px;
+            cursor: pointer;
+            transition: color 0.15s;
+            scroll-margin-top: 1rem;
+        }
+        .moulting-link:hover {
+            color: #0a4d63;
+        }
+        .moulting-link::after {
+            content: "▶ watch video";
+            position: absolute;
+            bottom: 130%;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #0b2b3c;
+            color: #e6f3fa;
+            font-size: 0.7rem;
+            font-weight: 500;
+            padding: 0.35rem 0.9rem;
+            border-radius: 40px;
+            white-space: nowrap;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease, bottom 0.18s ease;
+            box-shadow: 0 6px 14px rgba(0,0,0,0.15);
+            letter-spacing: 0.3px;
+        }
+        .moulting-link:hover::after {
+            opacity: 1;
+            bottom: 140%;
+        }
+        /* little arrow */
+        .moulting-link::before {
+            content: "";
+            position: absolute;
+            bottom: 110%;
+            left: 50%;
+            transform: translateX(-50%);
+            border: 6px solid transparent;
+            border-top-color: #0b2b3c;
+            opacity: 0;
+            pointer-events: none;
+            transition: opacity 0.18s ease, bottom 0.18s ease;
+        }
+        .moulting-link:hover::before {
+            opacity: 1;
+            bottom: 120%;
+        }
+
+        /* ---------- footer ---------- */
         .footer {
             margin-top: 3rem; text-align: center;
             color: #6b8f9c; font-size: 0.95rem;
             border-top: 1px solid #cde3ec; padding-top: 2rem;
         }
 
+        /* ---------- responsive ---------- */
         @media (max-width: 600px) {
             body { padding: 1.2rem; }
             .header h1 { font-size: 2rem; }
             .theme-card { padding: 1.2rem; }
             .theme-title { font-size: 1.6rem; }
             .topic-name { font-size: 1.2rem; }
+            .notes-section { padding: 1.4rem 1rem; }
+            .notes-section h2 { font-size: 1.4rem; }
+            .notes-section h3 { font-size: 1.1rem; }
         }
     </style>
 </head>
 <body>
     <div class="wrapper">
+        <!-- header -->
         <div class="header">
             <h1>🔭 simple science</h1>
-            <p>moulting · one topic</p>
+            <p>moulting · managing changes</p>
         </div>
 
-        <div class="theme-card">
+        <!-- video card (top) -->
+        <div class="theme-card" id="video-section">
             <div class="theme-title"><span>🦎</span> Moulting</div>
 
             <div class="topic">
@@ -136,8 +257,8 @@
                     <label for="moultingSelect">Video:</label>
                     <select id="moultingSelect"
                             onchange="document.getElementById('moultingFrame').src = this.value">
-                        <option value="https://www.youtube.com/embed/95DRqUEf6PI?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1">
-                            moulting in insects 
+                        <option value="https://www.youtube.com/embed/95DRqUEf6PI?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1" selected>
+                            moulting in insects
                         </option>
                         <option value="https://www.youtube.com/embed/roX7KaR73Vw?rel=0&modestbranding=1&iv_load_policy=3&playsinline=1">
                             moulting in insects
@@ -163,7 +284,239 @@
             </div>
         </div>
 
+        <!-- ========== NOTES ========== -->
+        <div class="notes-section">
+            <h2>Managing changes in the environment</h2>
+
+            <h3>Types of changes</h3>
+            <ul>
+                <li><strong>Biological changes</strong></li>
+                <li><strong>Physical changes</strong></li>
+                <li><strong>Chemical changes</strong></li>
+            </ul>
+
+            <h3>Biological changes</h3>
+            <p>These only take place in living things but they do not involve chemical reactions.</p>
+
+            <p><strong>Characteristics of biological changes</strong></p>
+            <ul>
+                <li>They form new substances</li>
+                <li>They are irreversible</li>
+                <li>They only take place in living things</li>
+            </ul>
+
+            <p><strong>Examples of chemical changes</strong> <em>(as listed in the notes)</em></p>
+            <ul>
+                <li>
+                    <!-- 🌟 MOULTING LINK with hover tooltip and click to scroll -->
+                    <a class="moulting-link" id="moultingLink" href="#video-section" 
+                       onclick="document.getElementById('video-section').scrollIntoView({ behavior: 'smooth' }); return false;">
+                        Moulting
+                    </a>
+                </li>
+                <li>Metamorphosis</li>
+                <li>Gain and weight loss</li>
+                <li>Growth</li>
+                <li>Germination</li>
+                <li>Fertilization</li>
+                <li>Ripening of fruits</li>
+                <li>Fruiting</li>
+                <li>Shedding of leaves</li>
+            </ul>
+
+            <h3>Managing body changes</h3>
+            <p><strong>Examples of body changes</strong></p>
+            <ul>
+                <li>Growth of hair</li>
+                <li>Growth of toe / finger nails</li>
+                <li>Body odour</li>
+                <li>Menstruation</li>
+                <li>Weight gain and loss</li>
+                <li>Falling sick</li>
+            </ul>
+
+            <p><strong>How to manage the body changes</strong><br>
+            The body changes above are managed through promotion of personal hygiene, sanitation and also feeding on a balanced diet / proper feeding.</p>
+
+            <p><strong>Guidance on how to manage body changes</strong></p>
+            <ul>
+                <li>Always promote personal hygiene in order to look smart, prevent injuries and skin diseases.</li>
+                <li>Always promote sanitation in order to prevent diarrheal diseases.</li>
+                <li>Always feed on a balanced diet in order to prevent / avoid deficiency diseases.</li>
+                <li>Avoid smoking and alcoholism in order to have good health of body organs such as brain, liver and the kidneys.</li>
+            </ul>
+
+            <p><strong>Effects of biological changes</strong></p>
+            <ul>
+                <li>They cause organisms to multiply</li>
+                <li>They lead to the formation of new cells in organisms</li>
+                <li>They cause maturity of organisms</li>
+                <li>They lead to increase or decrease in weight and size of organisms</li>
+            </ul>
+
+            <p><strong>Importance of biological changes</strong></p>
+            <ul>
+                <li>They enable organisms to increase in number (reproduction)</li>
+                <li>They enable animals to increase in size through moulting and growth</li>
+                <li>Reproduction enables continuity of life</li>
+                <li>Ripening and fruiting enable organisms to get food</li>
+            </ul>
+
+            <h3>Chemical changes</h3>
+            <p>These changes are irreversible and they involve chemical reactions.</p>
+            <p><strong>Characteristics of chemical changes</strong></p>
+            <ul>
+                <li>They form new substances</li>
+                <li>They are irreversible</li>
+                <li>Substances change their mass, size, shape and weight.</li>
+            </ul>
+            <p><strong>Examples of chemical changes</strong></p>
+            <ul>
+                <li>Burning</li>
+                <li>Decomposition</li>
+                <li>Fermentation</li>
+                <li>Respiration</li>
+                <li>Photosynthesis</li>
+                <li>Rusting</li>
+            </ul>
+
+            <h3>Rusting</h3>
+            <p>This is the formation of a brownish coating on iron when it reacts with oxygen and water.</p>
+            <p><strong>Conditions necessary for rusting</strong></p>
+            <ul>
+                <li>Oxygen</li>
+                <li>Water</li>
+            </ul>
+            <div class="highlight-box">
+                Iron + oxygen + water → rust
+            </div>
+
+            <p><strong>Examples of metals that do not rust</strong></p>
+            <ul>
+                <li>Aluminum</li>
+                <li>Brass</li>
+                <li>Gold</li>
+                <li>Stainless steel</li>
+                <li>Copper</li>
+            </ul>
+
+            <p><strong>Effects of rusting</strong></p>
+            <ul>
+                <li>It makes cutting tools blunt</li>
+                <li>It reduces the thickness of metals</li>
+                <li>It makes metals weak</li>
+                <li>It changes the color of metals</li>
+                <li>It makes screws and bolts hard to unscrew</li>
+            </ul>
+
+            <p><strong>Importance of rusting</strong></p>
+            <ul>
+                <li>It adds iron in soil hence improving soil's fertility</li>
+            </ul>
+
+            <p><strong>Methods used to prevent rusting</strong></p>
+            <ul>
+                <li><strong>Lubrication:</strong> applying grease or oil on metals.</li>
+                <li><strong>Painting</strong></li>
+                <li><strong>Galvanization:</strong> applying a coating of metal with a layer of zinc. Usually done on iron sheets.</li>
+                <li><strong>Keeping metals in a dry place.</strong></li>
+            </ul>
+
+            <p><strong>Similarities between rusting and burning</strong></p>
+            <ul>
+                <li>Both are chemical changes.</li>
+                <li>Both require oxygen to occur.</li>
+            </ul>
+
+            <p><strong>Differences between rusting and burning</strong></p>
+            <ul>
+                <li>Rusting requires both oxygen and water to occur while burning requires only oxygen.</li>
+                <li>Burning produces heat and light unlike rusting.</li>
+                <li>Rusting forms iron oxide while burning forms carbon.</li>
+            </ul>
+
+            <p><strong>Advantages (positive effects) of chemical changes</strong></p>
+            <ul>
+                <li>Burning produces heat which is used for cooking.</li>
+                <li>Respiration provides energy to the body.</li>
+                <li>Fermentation is used in brewing of alcohol.</li>
+                <li>Through decomposition, soil is formed.</li>
+                <li>Iron is added to soil through rusting.</li>
+            </ul>
+
+            <p><strong>Disadvantages (negative effects) of chemical changes</strong></p>
+            <ul>
+                <li>Rusting causes iron metals to wear out.</li>
+                <li>Chemical changes such as burning, fermentation, respiration and decomposition cause air pollution.</li>
+                <li>Changes such as decomposition, burning and rusting cause destruction of property.</li>
+            </ul>
+
+            <h3>Physical changes</h3>
+            <p>These changes do not form new substances.</p>
+            <p><strong>Characteristics of physical changes</strong></p>
+            <ul>
+                <li>Most of them are reversible.</li>
+                <li>No new substance is formed.</li>
+                <li>There is change in shape, size and form.</li>
+                <li>There is change in weight and volume.</li>
+                <li>The mass remains the same.</li>
+            </ul>
+
+            <p><strong>Examples of physical changes</strong></p>
+            <ul>
+                <li>Melting</li>
+                <li>Condensation</li>
+                <li>Shrinking</li>
+                <li>Dissolving of solutes in solvents</li>
+                <li>Expansion</li>
+                <li>Deposition</li>
+                <li>Freezing</li>
+                <li>Sublimation</li>
+                <li>Evaporation</li>
+            </ul>
+
+            <p><strong>Effects of physical changes in the environment</strong></p>
+            <ul>
+                <li>They lead to the formation of rain.</li>
+                <li>They lead to the formation of ice.</li>
+                <li>They lead to the formation of snow.</li>
+                <li>They lead to the formation of dew.</li>
+            </ul>
+        </div>
+        <!-- /notes -->
+
         <div class="footer">⚡ Essentials in p5 science</div>
     </div>
+
+    <!-- small script to handle select change safely and smooth scroll fallback -->
+    <script>
+        // smooth scroll for the moulting link (also fallback for older browsers)
+        (function() {
+            const link = document.getElementById('moultingLink');
+            if (link) {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const target = document.getElementById('video-section');
+                    if (target) {
+                        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }
+                });
+            }
+        })();
+
+        // ensure select onchange works (already inline, but just in case)
+        // plus keep the iframe src in sync with the selected option
+        document.addEventListener('DOMContentLoaded', function() {
+            const select = document.getElementById('moultingSelect');
+            const iframe = document.getElementById('moultingFrame');
+            if (select && iframe) {
+                // set initial src (already set but just to be safe)
+                iframe.src = select.value;
+                select.addEventListener('change', function() {
+                    iframe.src = this.value;
+                });
+            }
+        });
+    </script>
 </body>
 </html>
