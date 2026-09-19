@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Simple Science · Moulting & Changes</title>
+    <title>Simple Science · Changes · Goats · Assessment</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box;
             font-family: system-ui, 'Segoe UI', Roboto, sans-serif; }
@@ -12,7 +12,7 @@
         .wrapper { max-width: 900px; margin: 0 auto; }
 
         /* ---------- header ---------- */
-        .header { margin-bottom: 2.5rem; text-align: center; }
+        .header { margin-bottom: 1.6rem; text-align: center; }
         .header h1 {
             font-size: 2.6rem; font-weight: 600;
             background: linear-gradient(135deg, #0f5e7a, #1b8c9c);
@@ -25,7 +25,80 @@
             padding-bottom: 0.75rem;
         }
 
-        /* ---------- video card ---------- */
+        /* ---------- tab buttons ---------- */
+        .tab-bar {
+            display: flex;
+            justify-content: center;
+            gap: 0.8rem;
+            margin: 1.6rem 0 2rem;
+            flex-wrap: wrap;
+        }
+        .tab-btn {
+            background: #ffffff;
+            border: 2px solid #b1dfec;
+            padding: 0.7rem 1.8rem;
+            border-radius: 60px;
+            font-weight: 600;
+            font-size: 1.05rem;
+            color: #16697a;
+            cursor: pointer;
+            transition: all 0.15s ease;
+            box-shadow: 0 4px 8px rgba(0, 40, 60, 0.04);
+            letter-spacing: 0.2px;
+        }
+        .tab-btn:hover {
+            background: #e1f0f7;
+            border-color: #6ab3cf;
+            transform: translateY(-1px);
+        }
+        .tab-btn.active {
+            background: #0f5e7a;
+            border-color: #0f5e7a;
+            color: #ffffff;
+            box-shadow: 0 8px 16px rgba(15, 94, 122, 0.25);
+        }
+
+        /* ---------- panels ---------- */
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ---------- default home animation ---------- */
+        .home-panel {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            padding: 1rem 0 2rem;
+        }
+        .graph-canvas {
+            width: 100%;
+            max-width: 700px;
+            background: #ffffff;
+            border-radius: 32px;
+            box-shadow: 0 20px 40px rgba(0, 40, 60, 0.08);
+            border: 1px solid rgba(110, 170, 200, 0.2);
+            padding: 0.5rem;
+            margin-bottom: 1.5rem;
+            overflow: hidden;
+        }
+        .graph-canvas canvas {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 28px;
+            background: linear-gradient(145deg, #f0f9fe, #ffffff);
+        }
+        .home-caption {
+            color: #2b5e6e;
+            font-size: 1rem;
+            letter-spacing: 0.5px;
+            background: #e1f0f7;
+            padding: 0.5rem 1.6rem;
+            border-radius: 60px;
+            border: 1px solid #b8d7e3;
+        }
+
+        /* ---------- video card (changes) ---------- */
         .theme-card {
             background: #fff; border-radius: 28px;
             box-shadow: 0 12px 30px rgba(0, 40, 60, 0.08);
@@ -106,7 +179,7 @@
             border: 1px solid #b8d3e0;
         }
 
-        /* ---------- notes section ---------- */
+        /* ---------- notes with collapsible ---------- */
         .notes-section {
             max-width: 800px; margin: 0 auto;
             background: #ffffff;
@@ -124,45 +197,76 @@
         .notes-section h2::before {
             content: "📘"; font-size: 1.6rem;
         }
-        .notes-section h3 {
-            font-size: 1.25rem; font-weight: 600; color: #0a3c4e;
-            margin: 1.6rem 0 0.6rem;
-            padding-left: 0.4rem;
-            border-left: 5px solid #1b8c9c;
-            padding-top: 0.1rem;
-            padding-bottom: 0.1rem;
-        }
-        .notes-section h3:first-of-type { margin-top: 0.4rem; }
 
-        .notes-section p {
-            margin: 0.4rem 0 0.6rem 0.8rem;
+        /* collapsible heading style */
+        .collapsible {
+            cursor: pointer;
+            user-select: none;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: #0a3c4e;
+            margin: 1.6rem 0 0.6rem;
+            padding: 0.3rem 0.4rem 0.3rem 0.8rem;
+            border-left: 5px solid #1b8c9c;
+            background: #f8fdff;
+            border-radius: 0 12px 12px 0;
+            transition: background 0.15s, box-shadow 0.15s;
+        }
+        .collapsible:hover {
+            background: #e9f4fb;
+            box-shadow: 0 2px 8px rgba(27, 140, 156, 0.08);
+        }
+        .collapsible .arrow {
+            font-size: 1rem;
+            transition: transform 0.25s ease;
+            color: #1b8c9c;
+            margin-right: 0.4rem;
+        }
+        .collapsible.open .arrow {
+            transform: rotate(90deg);
+        }
+        .collapsible-content {
+            display: none;
+            padding: 0.4rem 0.8rem 0.6rem 1.6rem;
+            border-left: 3px solid #b1dfec;
+            margin-left: 0.6rem;
+            margin-bottom: 0.6rem;
+        }
+        .collapsible-content.open {
+            display: block;
+        }
+        .collapsible-content p {
+            margin: 0.4rem 0 0.6rem 0.4rem;
             color: #1b3f4e;
         }
-        .notes-section ul, .notes-section ol {
-            margin: 0.4rem 0 0.9rem 1.8rem;
+        .collapsible-content ul, .collapsible-content ol {
+            margin: 0.4rem 0 0.9rem 1.4rem;
             color: #1b3f4e;
         }
-        .notes-section li {
+        .collapsible-content li {
             margin-bottom: 0.25rem;
         }
-        .notes-section strong {
+        .collapsible-content strong {
             color: #0b4b5e;
         }
-        .notes-section em {
+        .collapsible-content em {
             color: #2b6b7e;
             font-style: italic;
         }
 
-        .notes-section .highlight-box {
+        .highlight-box {
             background: #f0f9fe;
             border-left: 6px solid #1b8c9c;
             padding: 0.8rem 1rem;
             border-radius: 12px;
-            margin: 0.8rem 0 1rem 0;
+            margin: 0.8rem 0 1rem 0.4rem;
             font-size: 0.98rem;
         }
 
-        /* moulting link – hover shows tooltip, click scrolls up */
+        /* moulting link tooltip */
         .moulting-link {
             position: relative;
             color: #0f6f8c;
@@ -172,7 +276,6 @@
             text-underline-offset: 3px;
             cursor: pointer;
             transition: color 0.15s;
-            scroll-margin-top: 1rem;
         }
         .moulting-link:hover {
             color: #0a4d63;
@@ -200,7 +303,6 @@
             opacity: 1;
             bottom: 140%;
         }
-        /* little arrow */
         .moulting-link::before {
             content: "";
             position: absolute;
@@ -218,6 +320,70 @@
             bottom: 120%;
         }
 
+        /* ---------- assessment cards ---------- */
+        .assessment-section {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+        .assessment-section h2 {
+            font-size: 1.8rem; font-weight: 600; color: #124f63;
+            border-bottom: 3px solid #b1dfec;
+            padding-bottom: 0.5rem; margin-bottom: 1.5rem;
+            display: flex; align-items: center; gap: 0.6rem;
+        }
+        .assessment-section h2::before {
+            content: "📝"; font-size: 1.6rem;
+        }
+        .assessment-card {
+            background: #ffffff;
+            border-radius: 24px;
+            box-shadow: 0 8px 24px rgba(0, 40, 60, 0.06);
+            padding: 1.6rem 1.6rem 1.4rem;
+            margin-bottom: 1.6rem;
+            border: 1px solid rgba(110, 170, 200, 0.2);
+        }
+        .assessment-card h3 {
+            font-size: 1.35rem;
+            font-weight: 600;
+            color: #0a3c4e;
+            margin-bottom: 0.9rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .assessment-card h3::before {
+            content: "🔹";
+            font-size: 1.2rem;
+        }
+        .assessment-card ol {
+            margin-left: 1.6rem;
+            color: #1b3f4e;
+        }
+        .assessment-card li {
+            margin-bottom: 0.45rem;
+            padding-left: 0.2rem;
+        }
+        .assessment-card .sub-q {
+            margin-top: 0.4rem;
+            margin-left: 1.2rem;
+            list-style-type: lower-roman;
+        }
+
+        /* ---------- goats placeholder ---------- */
+        .goats-placeholder {
+            background: #ffffff;
+            border-radius: 28px;
+            box-shadow: 0 12px 30px rgba(0, 40, 60, 0.06);
+            padding: 3rem 2rem;
+            text-align: center;
+            border: 2px dashed #b8d7e3;
+            color: #4b7a8a;
+            font-size: 1.2rem;
+            max-width: 640px;
+            margin: 0 auto 2.5rem;
+        }
+        .goats-placeholder span { font-size: 2.5rem; display: block; margin-bottom: 0.8rem; }
+
         /* ---------- footer ---------- */
         .footer {
             margin-top: 3rem; text-align: center;
@@ -234,7 +400,9 @@
             .topic-name { font-size: 1.2rem; }
             .notes-section { padding: 1.4rem 1rem; }
             .notes-section h2 { font-size: 1.4rem; }
-            .notes-section h3 { font-size: 1.1rem; }
+            .collapsible { font-size: 1.05rem; }
+            .tab-btn { padding: 0.6rem 1.2rem; font-size: 0.95rem; }
+            .assessment-card { padding: 1.2rem; }
         }
     </style>
 </head>
@@ -242,256 +410,423 @@
     <div class="wrapper">
         <!-- header -->
         <div class="header">
-            <h1>🔭 simple science</h1>
-            <p>moulting · managing changes</p>
+            <h1>🔭 p5 science Essentials</h1>
+        
         </div>
 
-        <!-- video card (top) -->
-        <div class="theme-card" id="video-section">
-            <div class="theme-title"><span>🦎</span> Moulting</div>
+        <!-- tab buttons -->
+        <div class="tab-bar">
+            <button class="tab-btn" data-panel="home">🏠 Home</button>
+            <button class="tab-btn" data-panel="changes">📘 Changes</button>
+            <button class="tab-btn" data-panel="goats">🐐 Goats</button>
+            <button class="tab-btn" data-panel="assessment">📝 Assessment</button>
+        </div>
 
-            <div class="topic">
-                <div class="topic-name">Choose a video</div>
-
-                <div class="video-picker">
-                    <label for="moultingSelect">Video:</label>
-                    <select id="moultingSelect"
-                            onchange="document.getElementById('moultingFrame').src = this.value">
-                        <option value="https://www.youtube.com/embed/xDiL2zIFYuA?playsinline=1" selected>
-                            moulting in insects (video 1)
-                        </option>
-                        <option value="https://www.youtube.com/embed/EbHyq3RwtxI?playsinline=1">
-                            moulting in insects (video 2)
-                        </option>
-                        <option value="https://www.youtube.com/embed/17c4XIekQEY?playsinline=1">
-                            moulting in snakes
-                        </option>
-                    </select>
+        <!-- ========== HOME PANEL (default) ========== -->
+        <div id="panel-home" class="panel active">
+            <div class="home-panel">
+                <div class="graph-canvas">
+                    <canvas id="chaseCanvas" width="700" height="300"></canvas>
                 </div>
-
-                <div class="video-container">
-                    <iframe id="moultingFrame"
-                            src="https://www.youtube.com/embed/xDiL2zIFYuA?playsinline=1"
-                            title="Moulting video"
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
-                            allowfullscreen>
-                    </iframe>
-                </div>
-
-                <div class="video-note">
-                    <code>3 videos · pick one above</code>
-                </div>
+                <div class="home-caption">⚡ lines chasing each other</div>
             </div>
         </div>
 
-        <!-- ========== NOTES ========== -->
-        <div class="notes-section">
-            <h2>Managing changes in the environment</h2>
+        <!-- ========== CHANGES PANEL ========== -->
+        <div id="panel-changes" class="panel">
 
-            <h3>Types of changes</h3>
-            <ul>
-                <li><strong>Biological changes</strong></li>
-                <li><strong>Physical changes</strong></li>
-                <li><strong>Chemical changes</strong></li>
-            </ul>
+            <!-- video card -->
+            <div class="theme-card" id="video-section">
+                <div class="theme-title"><span>🦎</span> Moulting &amp; Changes</div>
 
-            <h3>Biological changes</h3>
-            <p>These only take place in living things but they do not involve chemical reactions.</p>
+                <div class="topic">
+                    <div class="topic-name">Choose a video</div>
 
-            <p><strong>Characteristics of biological changes</strong></p>
-            <ul>
-                <li>They form new substances</li>
-                <li>They are irreversible</li>
-                <li>They only take place in living things</li>
-            </ul>
+                    <div class="video-picker">
+                        <label for="moultingSelect">Video:</label>
+                        <select id="moultingSelect"
+                                onchange="document.getElementById('moultingFrame').src = this.value">
+                            <option value="https://www.youtube.com/embed/xDiL2zIFYuA?playsinline=1" selected>
+                                moulting in insects (video 1)
+                            </option>
+                            <option value="https://www.youtube.com/embed/EbHyq3RwtxI?playsinline=1">
+                                moulting in insects (video 2)
+                            </option>
+                            <option value="https://www.youtube.com/embed/17c4XIekQEY?playsinline=1">
+                                moulting in snakes
+                            </option>
+                        </select>
+                    </div>
 
-            <p><strong>Examples of chemical changes</strong> <em>(as listed in the notes)</em></p>
-            <ul>
-                <li>
-                    <!-- 🌟 MOULTING LINK with hover tooltip and click to scroll -->
-                    <a class="moulting-link" id="moultingLink" href="#video-section" 
-                       onclick="document.getElementById('video-section').scrollIntoView({ behavior: 'smooth' }); return false;">
-                        Moulting
-                    </a>
-                </li>
-                <li>Metamorphosis</li>
-                <li>Gain and weight loss</li>
-                <li>Growth</li>
-                <li>Germination</li>
-                <li>Fertilization</li>
-                <li>Ripening of fruits</li>
-                <li>Fruiting</li>
-                <li>Shedding of leaves</li>
-            </ul>
+                    <div class="video-container">
+                        <iframe id="moultingFrame"
+                                src="https://www.youtube.com/embed/xDiL2zIFYuA?playsinline=1"
+                                title="Moulting video"
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                                allowfullscreen>
+                        </iframe>
+                    </div>
 
-            <h3>Managing body changes</h3>
-            <p><strong>Examples of body changes</strong></p>
-            <ul>
-                <li>Growth of hair</li>
-                <li>Growth of toe / finger nails</li>
-                <li>Body odour</li>
-                <li>Menstruation</li>
-                <li>Weight gain and loss</li>
-                <li>Falling sick</li>
-            </ul>
-
-            <p><strong>How to manage the body changes</strong><br>
-            The body changes above are managed through promotion of personal hygiene, sanitation and also feeding on a balanced diet / proper feeding.</p>
-
-            <p><strong>Guidance on how to manage body changes</strong></p>
-            <ul>
-                <li>Always promote personal hygiene in order to look smart, prevent injuries and skin diseases.</li>
-                <li>Always promote sanitation in order to prevent diarrheal diseases.</li>
-                <li>Always feed on a balanced diet in order to prevent / avoid deficiency diseases.</li>
-                <li>Avoid smoking and alcoholism in order to have good health of body organs such as brain, liver and the kidneys.</li>
-            </ul>
-
-            <p><strong>Effects of biological changes</strong></p>
-            <ul>
-                <li>They cause organisms to multiply</li>
-                <li>They lead to the formation of new cells in organisms</li>
-                <li>They cause maturity of organisms</li>
-                <li>They lead to increase or decrease in weight and size of organisms</li>
-            </ul>
-
-            <p><strong>Importance of biological changes</strong></p>
-            <ul>
-                <li>They enable organisms to increase in number (reproduction)</li>
-                <li>They enable animals to increase in size through moulting and growth</li>
-                <li>Reproduction enables continuity of life</li>
-                <li>Ripening and fruiting enable organisms to get food</li>
-            </ul>
-
-            <h3>Chemical changes</h3>
-            <p>These changes are irreversible and they involve chemical reactions.</p>
-            <p><strong>Characteristics of chemical changes</strong></p>
-            <ul>
-                <li>They form new substances</li>
-                <li>They are irreversible</li>
-                <li>Substances change their mass, size, shape and weight.</li>
-            </ul>
-            <p><strong>Examples of chemical changes</strong></p>
-            <ul>
-                <li>Burning</li>
-                <li>Decomposition</li>
-                <li>Fermentation</li>
-                <li>Respiration</li>
-                <li>Photosynthesis</li>
-                <li>Rusting</li>
-            </ul>
-
-            <h3>Rusting</h3>
-            <p>This is the formation of a brownish coating on iron when it reacts with oxygen and water.</p>
-            <p><strong>Conditions necessary for rusting</strong></p>
-            <ul>
-                <li>Oxygen</li>
-                <li>Water</li>
-            </ul>
-            <div class="highlight-box">
-                Iron + oxygen + water → rust
+                    <div class="video-note">
+                        <code>3 videos · pick one above</code>
+                    </div>
+                </div>
             </div>
 
-            <p><strong>Examples of metals that do not rust</strong></p>
-            <ul>
-                <li>Aluminum</li>
-                <li>Brass</li>
-                <li>Gold</li>
-                <li>Stainless steel</li>
-                <li>Copper</li>
-            </ul>
+            <!-- notes with collapsible sections -->
+            <div class="notes-section">
+                <h2>Managing changes in the environment</h2>
 
-            <p><strong>Effects of rusting</strong></p>
-            <ul>
-                <li>It makes cutting tools blunt</li>
-                <li>It reduces the thickness of metals</li>
-                <li>It makes metals weak</li>
-                <li>It changes the color of metals</li>
-                <li>It makes screws and bolts hard to unscrew</li>
-            </ul>
+                <!-- Types of changes -->
+                <div class="collapsible" data-target="types-changes">
+                    <span>Types of changes</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="types-changes">
+                    <ul>
+                        <li><strong>Biological changes</strong></li>
+                        <li><strong>Physical changes</strong></li>
+                        <li><strong>Chemical changes</strong></li>
+                    </ul>
+                </div>
 
-            <p><strong>Importance of rusting</strong></p>
-            <ul>
-                <li>It adds iron in soil hence improving soil's fertility</li>
-            </ul>
+                <!-- Biological changes -->
+                <div class="collapsible" data-target="bio-changes">
+                    <span>Biological changes</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="bio-changes">
+                    <p>These only take place in living things but they do not involve chemical reactions.</p>
+                    <p><strong>Characteristics of biological changes</strong></p>
+                    <ul>
+                        <li>They form new substances</li>
+                        <li>They are irreversible</li>
+                        <li>They only take place in living things</li>
+                    </ul>
+                    <p><strong>Examples of chemical changes</strong> <em>(as listed in the notes)</em></p>
+                    <ul>
+                        <li>
+                            <a class="moulting-link" id="moultingLink" href="#video-section" 
+                               onclick="document.getElementById('video-section').scrollIntoView({ behavior: 'smooth' }); return false;">
+                                Moulting
+                            </a>
+                        </li>
+                        <li>Metamorphosis</li>
+                        <li>Gain and weight loss</li>
+                        <li>Growth</li>
+                        <li>Germination</li>
+                        <li>Fertilization</li>
+                        <li>Ripening of fruits</li>
+                        <li>Fruiting</li>
+                        <li>Shedding of leaves</li>
+                    </ul>
+                </div>
 
-            <p><strong>Methods used to prevent rusting</strong></p>
-            <ul>
-                <li><strong>Lubrication:</strong> applying grease or oil on metals.</li>
-                <li><strong>Painting</strong></li>
-                <li><strong>Galvanization:</strong> applying a coating of metal with a layer of zinc. Usually done on iron sheets.</li>
-                <li><strong>Keeping metals in a dry place.</strong></li>
-            </ul>
+                <!-- Managing body changes -->
+                <div class="collapsible" data-target="manage-body">
+                    <span>Managing body changes</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="manage-body">
+                    <p><strong>Examples of body changes</strong></p>
+                    <ul>
+                        <li>Growth of hair</li>
+                        <li>Growth of toe / finger nails</li>
+                        <li>Body odour</li>
+                        <li>Menstruation</li>
+                        <li>Weight gain and loss</li>
+                        <li>Falling sick</li>
+                    </ul>
+                    <p><strong>How to manage the body changes</strong><br>
+                    The body changes above are managed through promotion of personal hygiene, sanitation and also feeding on a balanced diet / proper feeding.</p>
+                    <p><strong>Guidance on how to manage body changes</strong></p>
+                    <ul>
+                        <li>Always promote personal hygiene in order to look smart, prevent injuries and skin diseases.</li>
+                        <li>Always promote sanitation in order to prevent diarrheal diseases.</li>
+                        <li>Always feed on a balanced diet in order to prevent / avoid deficiency diseases.</li>
+                        <li>Avoid smoking and alcoholism in order to have good health of body organs such as brain, liver and the kidneys.</li>
+                    </ul>
+                </div>
 
-            <p><strong>Similarities between rusting and burning</strong></p>
-            <ul>
-                <li>Both are chemical changes.</li>
-                <li>Both require oxygen to occur.</li>
-            </ul>
+                <!-- Effects of biological changes -->
+                <div class="collapsible" data-target="effects-bio">
+                    <span>Effects of biological changes</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="effects-bio">
+                    <ul>
+                        <li>They cause organisms to multiply</li>
+                        <li>They lead to the formation of new cells in organisms</li>
+                        <li>They cause maturity of organisms</li>
+                        <li>They lead to increase or decrease in weight and size of organisms</li>
+                    </ul>
+                </div>
 
-            <p><strong>Differences between rusting and burning</strong></p>
-            <ul>
-                <li>Rusting requires both oxygen and water to occur while burning requires only oxygen.</li>
-                <li>Burning produces heat and light unlike rusting.</li>
-                <li>Rusting forms iron oxide while burning forms carbon.</li>
-            </ul>
+                <!-- Importance of biological changes -->
+                <div class="collapsible" data-target="importance-bio">
+                    <span>Importance of biological changes</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="importance-bio">
+                    <ul>
+                        <li>They enable organisms to increase in number (reproduction)</li>
+                        <li>They enable animals to increase in size through moulting and growth</li>
+                        <li>Reproduction enables continuity of life</li>
+                        <li>Ripening and fruiting enable organisms to get food</li>
+                    </ul>
+                </div>
 
-            <p><strong>Advantages (positive effects) of chemical changes</strong></p>
-            <ul>
-                <li>Burning produces heat which is used for cooking.</li>
-                <li>Respiration provides energy to the body.</li>
-                <li>Fermentation is used in brewing of alcohol.</li>
-                <li>Through decomposition, soil is formed.</li>
-                <li>Iron is added to soil through rusting.</li>
-            </ul>
+                <!-- Chemical changes -->
+                <div class="collapsible" data-target="chem-changes">
+                    <span>Chemical changes</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="chem-changes">
+                    <p>These changes are irreversible and they involve chemical reactions.</p>
+                    <p><strong>Characteristics of chemical changes</strong></p>
+                    <ul>
+                        <li>They form new substances</li>
+                        <li>They are irreversible</li>
+                        <li>Substances change their mass, size, shape and weight.</li>
+                    </ul>
+                    <p><strong>Examples of chemical changes</strong></p>
+                    <ul>
+                        <li>Burning</li>
+                        <li>Decomposition</li>
+                        <li>Fermentation</li>
+                        <li>Respiration</li>
+                        <li>Photosynthesis</li>
+                        <li>Rusting</li>
+                    </ul>
+                </div>
 
-            <p><strong>Disadvantages (negative effects) of chemical changes</strong></p>
-            <ul>
-                <li>Rusting causes iron metals to wear out.</li>
-                <li>Chemical changes such as burning, fermentation, respiration and decomposition cause air pollution.</li>
-                <li>Changes such as decomposition, burning and rusting cause destruction of property.</li>
-            </ul>
+                <!-- Rusting -->
+                <div class="collapsible" data-target="rusting">
+                    <span>Rusting</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="rusting">
+                    <p>This is the formation of a brownish coating on iron when it reacts with oxygen and water.</p>
+                    <p><strong>Conditions necessary for rusting</strong></p>
+                    <ul>
+                        <li>Oxygen</li>
+                        <li>Water</li>
+                    </ul>
+                    <div class="highlight-box">
+                        Iron + oxygen + water → rust
+                    </div>
+                    <p><strong>Examples of metals that do not rust</strong></p>
+                    <ul>
+                        <li>Aluminum</li>
+                        <li>Brass</li>
+                        <li>Gold</li>
+                        <li>Stainless steel</li>
+                        <li>Copper</li>
+                    </ul>
+                    <p><strong>Effects of rusting</strong></p>
+                    <ul>
+                        <li>It makes cutting tools blunt</li>
+                        <li>It reduces the thickness of metals</li>
+                        <li>It makes metals weak</li>
+                        <li>It changes the color of metals</li>
+                        <li>It makes screws and bolts hard to unscrew</li>
+                    </ul>
+                    <p><strong>Importance of rusting</strong></p>
+                    <ul>
+                        <li>It adds iron in soil hence improving soil's fertility</li>
+                    </ul>
+                    <p><strong>Methods used to prevent rusting</strong></p>
+                    <ul>
+                        <li><strong>Lubrication:</strong> applying grease or oil on metals.</li>
+                        <li><strong>Painting</strong></li>
+                        <li><strong>Galvanization:</strong> applying a coating of metal with a layer of zinc. Usually done on iron sheets.</li>
+                        <li><strong>Keeping metals in a dry place.</strong></li>
+                    </ul>
+                    <p><strong>Similarities between rusting and burning</strong></p>
+                    <ul>
+                        <li>Both are chemical changes.</li>
+                        <li>Both require oxygen to occur.</li>
+                    </ul>
+                    <p><strong>Differences between rusting and burning</strong></p>
+                    <ul>
+                        <li>Rusting requires both oxygen and water to occur while burning requires only oxygen.</li>
+                        <li>Burning produces heat and light unlike rusting.</li>
+                        <li>Rusting forms iron oxide while burning forms carbon.</li>
+                    </ul>
+                    <p><strong>Advantages (positive effects) of chemical changes</strong></p>
+                    <ul>
+                        <li>Burning produces heat which is used for cooking.</li>
+                        <li>Respiration provides energy to the body.</li>
+                        <li>Fermentation is used in brewing of alcohol.</li>
+                        <li>Through decomposition, soil is formed.</li>
+                        <li>Iron is added to soil through rusting.</li>
+                    </ul>
+                    <p><strong>Disadvantages (negative effects) of chemical changes</strong></p>
+                    <ul>
+                        <li>Rusting causes iron metals to wear out.</li>
+                        <li>Chemical changes such as burning, fermentation, respiration and decomposition cause air pollution.</li>
+                        <li>Changes such as decomposition, burning and rusting cause destruction of property.</li>
+                    </ul>
+                </div>
 
-            <h3>Physical changes</h3>
-            <p>These changes do not form new substances.</p>
-            <p><strong>Characteristics of physical changes</strong></p>
-            <ul>
-                <li>Most of them are reversible.</li>
-                <li>No new substance is formed.</li>
-                <li>There is change in shape, size and form.</li>
-                <li>There is change in weight and volume.</li>
-                <li>The mass remains the same.</li>
-            </ul>
-
-            <p><strong>Examples of physical changes</strong></p>
-            <ul>
-                <li>Melting</li>
-                <li>Condensation</li>
-                <li>Shrinking</li>
-                <li>Dissolving of solutes in solvents</li>
-                <li>Expansion</li>
-                <li>Deposition</li>
-                <li>Freezing</li>
-                <li>Sublimation</li>
-                <li>Evaporation</li>
-            </ul>
-
-            <p><strong>Effects of physical changes in the environment</strong></p>
-            <ul>
-                <li>They lead to the formation of rain.</li>
-                <li>They lead to the formation of ice.</li>
-                <li>They lead to the formation of snow.</li>
-                <li>They lead to the formation of dew.</li>
-            </ul>
+                <!-- Physical changes -->
+                <div class="collapsible" data-target="physical-changes">
+                    <span>Physical changes</span>
+                    <span class="arrow">▶</span>
+                </div>
+                <div class="collapsible-content" id="physical-changes">
+                    <p>These changes do not form new substances.</p>
+                    <p><strong>Characteristics of physical changes</strong></p>
+                    <ul>
+                        <li>Most of them are reversible.</li>
+                        <li>No new substance is formed.</li>
+                        <li>There is change in shape, size and form.</li>
+                        <li>There is change in weight and volume.</li>
+                        <li>The mass remains the same.</li>
+                    </ul>
+                    <p><strong>Examples of physical changes</strong></p>
+                    <ul>
+                        <li>Melting</li>
+                        <li>Condensation</li>
+                        <li>Shrinking</li>
+                        <li>Dissolving of solutes in solvents</li>
+                        <li>Expansion</li>
+                        <li>Deposition</li>
+                        <li>Freezing</li>
+                        <li>Sublimation</li>
+                        <li>Evaporation</li>
+                    </ul>
+                    <p><strong>Effects of physical changes in the environment</strong></p>
+                    <ul>
+                        <li>They lead to the formation of rain.</li>
+                        <li>They lead to the formation of ice.</li>
+                        <li>They lead to the formation of snow.</li>
+                        <li>They lead to the formation of dew.</li>
+                    </ul>
+                </div>
+            </div>
+            <!-- /notes -->
         </div>
-        <!-- /notes -->
+
+        <!-- ========== GOATS PANEL (empty) ========== -->
+        <div id="panel-goats" class="panel">
+            <div class="goats-placeholder">
+                <span>🐐</span>
+                Goat notes will appear here.<br>
+                <small style="font-size:0.9rem; color:#6b8f9c;">(Upload your goat content later)</small>
+            </div>
+        </div>
+
+        <!-- ========== ASSESSMENT PANEL ========== -->
+        <div id="panel-assessment" class="panel">
+            <div class="assessment-section">
+                <h2>Assessment questions</h2>
+
+                <!-- Poultry -->
+                <div class="assessment-card">
+                    <h3>Poultry</h3>
+                    <ol>
+                        <li>Mention any two types of poultry kept in your community.</li>
+                        <li>State any two ways how a cock is different from the hen.</li>
+                        <li>Give any two ways in which feathers are important to poultry birds.</li>
+                        <li>Which kind of chicken will Yenka keep in order to start an egg selling company?</li>
+                        <li>Mention any two systems of keeping poultry.</li>
+                        <li>Give any two qualities of a good poultry house.</li>
+                        <li>Why is it important to add sand in poultry feeds?</li>
+                        <li>What mineral is required by hens to make them produce strong eggshells?</li>
+                        <li>How do you understand the word poultry vices?</li>
+                        <li>Give any two poultry vices you know.</li>
+                    </ol>
+                </div>
+
+                <!-- Bee keeping -->
+                <div class="assessment-card">
+                    <h3>Bee keeping</h3>
+                    <ol>
+                        <li>Why are honey bees called social insects?</li>
+                        <li>Give any two duties of worker bees.</li>
+                        <li>How do you define the term swarming in relation to bees?</li>
+                        <li>How are bees useful to a crop farmer (give 2)?</li>
+                        <li>Mention any three products gotten from bees.</li>
+                        <li>How is swarming prevented in bees (give 3)?</li>
+                        <li>Give any 4 factors to consider when siting a bee hive.</li>
+                        <li>State any three advantages of using modern bee hives.</li>
+                        <li>Give the function of the following in the modern bee hive:
+                            <ol class="sub-q">
+                                <li>Honey chamber</li>
+                                <li>Brood chamber</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+
+                <!-- Bacteria and fungi -->
+                <div class="assessment-card">
+                    <h3>Bacteria and fungi</h3>
+                    <ol>
+                        <li>How is bacteria and fungi useful to the environment?</li>
+                        <li>How is fungi harmful to man?</li>
+                        <li>Which organisms are used to produce biogas?</li>
+                        <li>How is yeast important in:
+                            <ol class="sub-q">
+                                <li>a person making bread</li>
+                                <li>a person brewing alcohol</li>
+                            </ol>
+                        </li>
+                    </ol>
+                </div>
+            </div>
+        </div>
 
         <div class="footer">⚡ Essentials in p5 science</div>
     </div>
 
-    <!-- small script to handle select change safely and smooth scroll fallback -->
+    <!-- scripts -->
     <script>
-        // smooth scroll for the moulting link (also fallback for older browsers)
         (function() {
+            // ---- tab switching ----
+            const tabs = document.querySelectorAll('.tab-btn');
+            const panels = {
+                home: document.getElementById('panel-home'),
+                changes: document.getElementById('panel-changes'),
+                goats: document.getElementById('panel-goats'),
+                assessment: document.getElementById('panel-assessment')
+            };
+
+            function activateTab(panelId) {
+                tabs.forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.panel === panelId);
+                });
+                Object.keys(panels).forEach(key => {
+                    panels[key].classList.toggle('active', key === panelId);
+                });
+                // if home becomes active, restart animation
+                if (panelId === 'home' && window.startChaseAnimation) {
+                    window.startChaseAnimation();
+                }
+            }
+
+            tabs.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    activateTab(this.dataset.panel);
+                });
+            });
+
+            // ---- collapsible headings ----
+            const collapsibles = document.querySelectorAll('.collapsible');
+            collapsibles.forEach(head => {
+                head.addEventListener('click', function(e) {
+                    if (e.target.closest('.moulting-link')) return; // allow link to work
+                    const targetId = this.dataset.target;
+                    const content = document.getElementById(targetId);
+                    if (content) {
+                        content.classList.toggle('open');
+                        this.classList.toggle('open');
+                    }
+                });
+            });
+
+            // ---- smooth scroll for moulting link ----
             const link = document.getElementById('moultingLink');
             if (link) {
                 link.addEventListener('click', function(e) {
@@ -502,21 +837,115 @@
                     }
                 });
             }
-        })();
 
-        // ensure select onchange works (already inline, but just in case)
-        // plus keep the iframe src in sync with the selected option
-        document.addEventListener('DOMContentLoaded', function() {
+            // ---- sync select + iframe ----
             const select = document.getElementById('moultingSelect');
             const iframe = document.getElementById('moultingFrame');
             if (select && iframe) {
-                // set initial src (already set but just to be safe)
                 iframe.src = select.value;
                 select.addEventListener('change', function() {
                     iframe.src = this.value;
                 });
             }
-        });
+
+            // ============================================================
+            //  ANIMATED CHASING LINES (home panel)
+            // ============================================================
+            const canvas = document.getElementById('chaseCanvas');
+            if (canvas) {
+                const ctx = canvas.getContext('2d');
+                let width, height;
+
+                function resizeCanvas() {
+                    const rect = canvas.parentElement.getBoundingClientRect();
+                    width = Math.min(700, rect.width - 20);
+                    height = 300;
+                    canvas.width = width;
+                    canvas.height = height;
+                }
+                resizeCanvas();
+                window.addEventListener('resize', () => {
+                    resizeCanvas();
+                    if (window.startChaseAnimation) window.startChaseAnimation();
+                });
+
+                // Animation variables
+                let animId = null;
+                let t = 0;
+
+                function startChaseAnimation() {
+                    if (animId) cancelAnimationFrame(animId);
+                    t = 0;
+                    function draw() {
+                        t += 0.015;
+                        if (!ctx) return;
+                        const w = canvas.width;
+                        const h = canvas.height;
+                        ctx.clearRect(0, 0, w, h);
+
+                        // background gradient
+                        const grad = ctx.createLinearGradient(0, 0, w, h);
+                        grad.addColorStop(0, '#f0f9fe');
+                        grad.addColorStop(1, '#ffffff');
+                        ctx.fillStyle = grad;
+                        ctx.fillRect(0, 0, w, h);
+
+                        // draw 4 chasing lines with different phases
+                        const colors = ['#0f5e7a', '#1b8c9c', '#3aa8b8', '#6ab3cf'];
+                        const phases = [0, Math.PI / 2, Math.PI, (3 * Math.PI) / 2];
+
+                        for (let i = 0; i < 4; i++) {
+                            ctx.beginPath();
+                            const phase = phases[i];
+                            const amplitude = 30 + i * 8;
+                            const freq = 0.012 + i * 0.002;
+                            const yBase = h / 2 + (i - 1.5) * 28;
+
+                            for (let x = 0; x < w; x += 2) {
+                                const y = yBase + Math.sin(x * freq + t * 2 + phase) * amplitude
+                                          + Math.cos(x * 0.008 + t * 1.3 + i) * 15;
+                                if (x === 0) ctx.moveTo(x, y);
+                                else ctx.lineTo(x, y);
+                            }
+                            ctx.strokeStyle = colors[i];
+                            ctx.lineWidth = 3.5;
+                            ctx.shadowColor = colors[i] + '80';
+                            ctx.shadowBlur = 12;
+                            ctx.stroke();
+                        }
+                        // second pass for glow
+                        ctx.shadowBlur = 0;
+                        for (let i = 0; i < 4; i++) {
+                            ctx.beginPath();
+                            const phase = phases[i];
+                            const amplitude = 30 + i * 8;
+                            const freq = 0.012 + i * 0.002;
+                            const yBase = h / 2 + (i - 1.5) * 28;
+
+                            for (let x = 0; x < w; x += 2) {
+                                const y = yBase + Math.sin(x * freq + t * 2 + phase) * amplitude
+                                          + Math.cos(x * 0.008 + t * 1.3 + i) * 15;
+                                if (x === 0) ctx.moveTo(x, y);
+                                else ctx.lineTo(x, y);
+                            }
+                            ctx.strokeStyle = colors[i] + '40';
+                            ctx.lineWidth = 6;
+                            ctx.stroke();
+                        }
+                        animId = requestAnimationFrame(draw);
+                    }
+                    draw();
+                }
+
+                // expose to window so tab switch can restart
+                window.startChaseAnimation = startChaseAnimation;
+                startChaseAnimation();
+            }
+
+            // ---- ensure changes tab doesn't auto-start animation but home does on load ----
+            // Home is default active; animation already running.
+            // When user goes to changes/goats/assessment and back to home, restart via activateTab.
+        })();
     </script>
 </body>
 </html>
